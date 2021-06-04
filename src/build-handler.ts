@@ -1,9 +1,9 @@
 import { buildSchema, graphql } from "graphql";
 import { Handler } from "express";
+import { StubSpec } from "./index";
 
-interface StubSpec<T> {
-  name: string;
-  response: T;
+interface Resolvers {
+  [key: string]: Function;
 }
 
 export default function buildHandler(
@@ -17,7 +17,7 @@ export default function buildHandler(
 
   const schema = buildSchema(rawSchema);
 
-  const root = [...queries, ...mutations].reduce((fields, query) => {
+  const root = [...queries, ...mutations].reduce((fields: Resolvers, query) => {
     if (fields[query.name]) {
       throw new Error(`GraphQL response already stubbed for '${query.name}'`);
     }

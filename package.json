@@ -1,15 +1,16 @@
 {
   "name": "dyson-graphql",
   "version": "0.0.1",
-  "description": "Simplify GraphQL stubbing with Dyson 🧙‍♂️",
+  "description": "Simplify GraphQL stubbing with Dyson 🔧",
   "main": "src/index.ts",
   "repository": "https://github.com/lukebrowne/dyson-graphql",
-  "author": "Luke Browne <luke.browne@wealthwizards.com>",
+  "author": "Wealth Wizards Engineering",
   "license": "MIT",
   "private": false,
   "scripts": {
     "test": "tse test",
-    "lint": "tse lint .",
+    "lint": "tse lint src",
+    "build": "tse build src/index.ts",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -22,5 +23,8 @@
   "dependencies": {
     "@types/express": "^4.17.12",
     "graphql": "^15.5.0"
+  },
+  "peerDependencies": {
+    "dyson": "^4.0.0"
   }
 }

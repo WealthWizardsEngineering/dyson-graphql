@@ -1,7 +1,12 @@
 import { Handler } from "express";
 import buildHandler from "./build-handler";
 
-interface Variables {
+export interface StubSpec<T> {
+  name: string;
+  response: T;
+}
+
+export interface Variables {
   [key: string]: number | string | boolean | null | Variables;
 }
 export interface ResponseResolver<T> {
@@ -21,17 +26,17 @@ export interface ChainableStubBuilder {
 }
 
 export default function dysonGraphQl(schema: string): ChainableStubBuilder {
-  const queries = [];
-  const mutations = [];
+  const queries = [] as StubSpec<any>[];
+  const mutations = [] as StubSpec<any>[];
 
   return {
     query<T>(name: String, response: T | ResponseResolver<T>) {
-      queries.push({ name, response });
+      queries.push({ name: name as string, response });
 
       return this;
     },
     mutation<T>(name: String, response: T | ResponseResolver<T>) {
-      mutations.push({ name, response });
+      mutations.push({ name: name as string, response });
 
       return this;
     },
