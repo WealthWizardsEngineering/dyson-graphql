@@ -1,6 +1,13 @@
 import { Handler } from "express";
 import buildHandler from "./build-handler";
 
+interface Variables {
+  [key: string]: number | string | boolean | null | Variables;
+}
+export interface ResponseResolver<T> {
+  (variables: Variables): T;
+}
+
 export interface ChainableStubBuilder {
   query<T>(
     name: String,
@@ -11,10 +18,6 @@ export interface ChainableStubBuilder {
     response: T | ResponseResolver<T>
   ): ChainableStubBuilder;
   build(): Handler;
-}
-
-export interface ResponseResolver<T> {
-  (...args: any[]): T;
 }
 
 export default function dysonGraphQl(schema: string): ChainableStubBuilder {

@@ -7,17 +7,17 @@ const dysonGraphQl = require("dyson-graphql");
 
 const schema = `
   type User {
-    id: String!
+    id: Int!
     name: String!
   }
 
   type Query {
-    user: User!
+    currentUser: User!
   }
 
   type Mutation {
     createUser(name: String!): User!
-    updateUser(id: String!, name: String!): User!
+    updateUser(id: Int!, name: String!): User!
   }
 `;
 
@@ -25,9 +25,13 @@ module.exports = {
   path: "/graphql",
   method: "POST",
   render: dysonGraphQl(schema)
-    .query("user", { id: "987", name: "Jane Smart" })
-    .mutation("createUser", { id: "456", name: "Bob Smith" })
-    .mutation("updateUser", () => {
+    .query("currentUser", { id: 987, name: "Jane Smart" })
+    .mutation("createUser", ({ name }) => ({ id: 456, name }))
+    .mutation("updateUser", ({ id, name }) => {
+      if (id < 1000) {
+        return { id, name };
+      }
+
       throw new Error("Can't update user");
     })
     .build()
@@ -39,4 +43,4 @@ module.exports = {
 - [X] Stub a query/mutation with a dynamic response
 - [X] Stub a query/mutation with an error response
 - [X] Stub multiple queries/mutations with responses
-- [ ] Stub multiple of the same query/mutation with different arugments with different responses
+- [X] Stub multiple of the same query/mutation with different arugments with different responses

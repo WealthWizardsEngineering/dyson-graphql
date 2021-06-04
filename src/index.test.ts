@@ -19,7 +19,7 @@ describe("dyson-graphql", () => {
   
     type Query {
       user: User!
-      dynamicUser: User!
+      dynamicUser(name: String!): User!
       brokenQuery: User!
     }
 
@@ -43,8 +43,8 @@ describe("dyson-graphql", () => {
       method: "POST",
       render: dysonGraphQl(schema)
         .query<User>("user", { id: "987", name: "Jane Smart" })
-        .query<User>("dynamicUser", () => {
-          return { id: "123", name: "John Smart" };
+        .query<User>("dynamicUser", ({ name }) => {
+          return { id: "123", name: name as string };
         })
         .mutation<User>("createUser", { id: "987", name: "Jane Smart" })
         .query<User>("brokenQuery", () => {
@@ -92,12 +92,11 @@ describe("dyson-graphql", () => {
       });
     });
 
-    it("should respond to a static mutation", async () => {
+    it("should respond with specified query (subset)", async () => {
       const mutation = `
         mutation CreateUser {
           createUser(name: "Fred Black") {
             id
-            name
           }
         }
       `;
@@ -111,7 +110,6 @@ describe("dyson-graphql", () => {
         data: {
           createUser: {
             id: "987",
-            name: "Jane Smart",
           },
         },
       });
@@ -120,8 +118,9 @@ describe("dyson-graphql", () => {
     it("should respond to a dynamic query", async () => {
       const query = `
         query GetUser {
-          dynamicUser {
+          dynamicUser(name: "Dynamic Name") {
             id
+            name
           }
         }
       `;
@@ -133,6 +132,7 @@ describe("dyson-graphql", () => {
         data: {
           dynamicUser: {
             id: "123",
+            name: "Dynamic Name",
           },
         },
       });

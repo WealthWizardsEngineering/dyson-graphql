@@ -24,9 +24,9 @@ export default function buildHandler(
 
     return {
       ...fields,
-      [query.name]: () => {
+      [query.name]: (variables: object) => {
         if (typeof query.response === "function") {
-          return query.response();
+          return query.response(variables);
         }
 
         return query.response;
