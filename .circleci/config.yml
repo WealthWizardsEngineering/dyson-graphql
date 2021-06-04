@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: cimg/node:16.3.0
+    steps:
+      - checkout
+      - run: yarn
+      - run: yarn lint
+      - run: yarn test
+workflows:
+  version: 2
+  test_builds:
+    jobs:
+      - test
