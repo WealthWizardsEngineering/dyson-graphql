@@ -1,0 +1,19 @@
+{
+  "name": "dyson-graphql",
+  "version": "0.0.1",
+  "description": "Simplify GraphQL stubbing with Dyson 🧙‍♂️",
+  "main": "src/index.ts",
+  "repository": "https://github.com/lukebrowne/dyson-graphql",
+  "author": "Luke Browne <luke.browne@wealthwizards.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "tse test",
+    "lint": "tse lint .",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@ts-engine/cli": "^2.0.0",
+    "husky": "^6.0.0"
+  }
+}
