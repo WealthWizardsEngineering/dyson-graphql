@@ -2,7 +2,7 @@
   "name": "dyson-graphql",
   "version": "0.0.1",
   "description": "Simplify GraphQL stubbing with Dyson 🔧",
-  "main": "src/index.ts",
+  "main": "dist/index.ts",
   "repository": "https://github.com/lukebrowne/dyson-graphql",
   "author": "Wealth Wizards Engineering",
   "license": "MIT",
