@@ -78,4 +78,10 @@ describe("build-handler", () => {
       new Error("GraphQL response already stubbed for 'createUser'")
     );
   });
+
+  it.todo("should map JavaScript errors into strings");
+
+  it.todo("should handle JavaScript strings being thrown");
+
+  it.todo("should handle handle graphql library throwing gracefully");
 });

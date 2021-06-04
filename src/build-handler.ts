@@ -24,17 +24,23 @@ export default function buildHandler(
 
     return {
       ...fields,
-      [query.name]: () => query.response,
+      [query.name]: () => {
+        if (typeof query.response === "function") {
+          return query.response();
+        }
+
+        return query.response;
+      },
     };
   }, {});
 
   return async (req, res): Promise<void> => {
     graphql(schema, req.body.query, root, {}, req.body.variables)
-      .then(({ data, errors: errorObjects }) => {
-        const errors = errorObjects?.map(({ message }) => message) || undefined;
+      .then(({ data, errors }) => {
+        const parsedErrors = errors?.map((error) => error.message);
 
         res.status(200);
-        res.json({ data, errors });
+        res.json({ data, errors: parsedErrors || undefined });
       })
       .catch((err) => {
         console.error("dyson-graphql: Unable to stub request", err);
