@@ -1,8 +1,11 @@
 # dyson-graphql
 
+[![WealthWizardsEngineering](https://circleci.com/gh/WealthWizardsEngineering/dyson-graphql.svg?style=svg)](https://app.circleci.com/pipelines/github/WealthWizardsEngineering/dyson-graphql)
+[![npm version](https://badge.fury.io/js/dyson-graphql.svg)](https://badge.fury.io/js/dyson-graphql)
+
 > Simplify GraphQL stubbing with Dyson 🔧
 
-Dyson is great at making development simpler when different endpoints provide different responses. 
+[Dyson](https://github.com/webpro/dyson) is great at making development simpler when different endpoints provide different responses. 
 However as GraphQL uses the same endpoint for all requests, stubbing requires adding logic and 
 complexity. Especially if you want fast feedback when executing invalid or incomplete GraphQL 
 queries.
